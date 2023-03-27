@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>To the Power of Math!</title>
+    <!-- Styling for the client UI -->
+    <style>
+    h1 {
+        color: #FFFFFF;
+        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        margin-left: 20px;
+        }
+	body {
+        background-color: #222629;
+        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+    label {
+        color: #86C232;
+        font-size: 20px;
+        margin-left: 20px;
+        margin-top: 20px;
+        }
+     button {
+        background-color: #86C232;
+        border: none;
+        border-radius: 5px;
+        color: #FFFFFF;
+        font-size: 20px;
+        font-weight: bold;
+        margin-left: 30px;
+        margin-top: 20px;
+        padding: 10px 20px;
+        transition: all 0.3s ease-in-out;
+        }
+	button:hover {
+        background-color: #5E9023;
+        cursor: pointer;
+        transform: scale(1.05);
+    }
+	input [type=text] {
+        background-color: #FFFFFF;
+        border: none;
+        border-radius: 5px;
+        color: #222629;
+        font-size: 20px;
+        margin-left: 10px;
+        margin-top: 20px;
+        padding: 10px;
+        width: 100px;
+        }
+	input[type=text]:focus {
+        outline: none;
+        box-shadow: 0 0 5px #86C232;
+    }
+    </style>
+    <script>
+        // callAPI function that takes the base and exponent numbers as parameters
+        var callAPI = (base,exponent)=>{
+            // instantiate a headers object
+            var myHeaders = new Headers();
+            // add content type header to object
+            myHeaders.append("Content-Type", "application/json");
+            // using built in JSON utility package turn object to string and store in a variable
+            var raw = JSON.stringify({"base":base,"exponent":exponent});
+            // create a JSON object with parameters for API call and store in a variable
+            var requestOptions = {
+                method: 'POST',
+                headers: myHeaders,
+                body: raw,
+                redirect: 'follow'
+            };
+            // make API call with parameters and use promises to get response
+            fetch("Please Put your OWN ARN :)", requestOptions)
+            .then(response => response.text())
+            .then(result => alert(JSON.parse(result).body))
+            .catch(error => console.log('error', error));
+        }
+    </script>
+</head>
+<body>
+    <h1>TO THE POWER OF MATH!</h1>
+	<form>
+        <label>Base number:</label>
+        <input type="text" id="base">
+        <label>...to the power of:</label>
+        <input type="text" id="exponent">
+        <!-- set button onClick method to call function we defined passing input values as parameters -->
+        <button type="button" onclick="callAPI(document.getElementById('base').value,document.getElementById('exponent').value)">CALCULATE</button>
+    </form>
+</body>
+</html>
